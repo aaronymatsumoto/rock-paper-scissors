@@ -52,8 +52,16 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // Takes the number of wins from player and computer and determines a final winner
-function getWinner() {
-    return;
+function getWinner(playerWins, computerWins) {
+    if (playerWins == computerWins) {
+        return `It's a Tie! Result is Player ${playerWins} to Computer ${computerWins}.`;
+    }
+    else if (playerWins > computerWins) {
+        return `You Win! Result is Player ${playerWins} to Computer ${computerWins}.`;
+    }
+    else {
+        return `You Lose! Result is Player ${playerWins} to Computer ${computerWins}.`;
+    }
 }
 
 // Play a given number of rounds between 1 and 10 of rock paper scissors
@@ -61,12 +69,23 @@ function game() {
     let playerSelection;
     let computerSelection;
     let numRounds = getNumberOfRounds();
+    let playerWins = 0;
+    let computerWins = 0;
     for (i = 0; i < numRounds; i++) {
         playerSelection = getPlayerSelection();
         computerSelection = computerPlay();
-        console.log(`Round ${i + 1}: ` + playRound(playerSelection, computerSelection));
-
+        roundResult = playRound(playerSelection, computerSelection);
+        console.log(`Round ${i + 1}: ` + roundResult);
+        if (roundResult.includes("Win"))
+        {
+            playerWins++;
+        }
+        else if(roundResult.includes("Lose"))
+        {
+            computerWins++;
+        }
     }
+    console.log(getWinner(playerWins, computerWins));
     return;
 }
 
